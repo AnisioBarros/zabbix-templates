@@ -1,0 +1,42 @@
+zabbix_export:
+  version: '5.2'
+  date: '2021-02-24T14:06:30Z'
+  groups:
+    -
+      name: Templates/Modules
+  templates:
+    -
+      template: 'Haproxy Stats Service'
+      name: 'Haproxy Stats Service'
+      groups:
+        -
+          name: Templates/Modules
+      applications:
+        -
+          name: 'Haproxy Stats service'
+      items:
+        -
+          name: 'Haproxy Stats service is running'
+          type: SIMPLE
+          key: 'net.tcp.service[tcp,,81]'
+          history: 1w
+          applications:
+            -
+              name: 'Haproxy Stats service'
+          valuemap:
+            name: 'Service state'
+          triggers:
+            -
+              expression: '{max(#3)}=0'
+              name: 'Haproxy Stats service is down on {HOST.NAME}'
+              priority: AVERAGE
+  value_maps:
+    -
+      name: 'Service state'
+      mappings:
+        -
+          value: '0'
+          newvalue: Down
+        -
+          value: '1'
+          newvalue: Up
