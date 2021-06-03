@@ -18,7 +18,7 @@ zabbix_export:
         -
           name: 'Cups service is running'
           type: SIMPLE
-          key: 'net.tcp.service[tcp,,81]'
+          key: 'net.tcp.service[tcp,,631]'
           history: 1w
           applications:
             -
